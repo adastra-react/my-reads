@@ -15,7 +15,7 @@ function App() {
   // const [showSearchPage, setShowSearchPage] = useState(false);
   const [allBooks, setAllBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
-
+// console.log(allBooks)
   // Search for book in the database
   const searchBooks = (query) => {
     if (query) {
@@ -46,24 +46,34 @@ function App() {
 
   // If there is a book match then it is updated on the /search page
   const updateSearchedResult = (values) => {
-    for (var value of values) {
-      for (let book of allBooks) {
+    values.forEach(value => {
+      allBooks.forEach(book => {
         if (value.id === book.id) {
           value.shelf = book.shelf
         }
-      }
-    }
-    console.log(values)
+      })
+    });
+    // for (let value of values) {
+    //   for (let book of allBooks) {
+    //     if (value.id === book.id) {
+    //       value.shelf = book.shelf
+    //     }
+    //   }
+    // }
     setFilteredBooks(values)
+    console.log(values)
   }
 
   // gets all books upon page first render
   useEffect(() => {
     let isMounted = true;
+    
       BooksAPI.getAll()
       .then((books) => {
         if(isMounted){
-          setAllBooks(books);
+          let original_books = JSON.parse(JSON.stringify(books));
+          setAllBooks(original_books);
+          console.log(Array.isArray(books))
         }
       })
 

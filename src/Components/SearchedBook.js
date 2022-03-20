@@ -1,10 +1,10 @@
 import React from 'react'
 
-function Book({ shelfBook, updateShelf }) {
-// console.log(shelfBook)
+function Book({ searchedBook, updateShelf }) {
+// console.log(searchedBook)
   // Checks this status of the current book then store the value.
-  let shelfValue = (shelfBook.shelf)
-  ? shelfBook.shelf
+  let shelfValue = (searchedBook.shelf)
+  ? searchedBook.shelf
   : 'move'
 
   return (
@@ -14,14 +14,14 @@ function Book({ shelfBook, updateShelf }) {
         <div className="book-top">
             <div className="book-cover"
              style={{ width: 128, height: 193,  backgroundImage:
-              shelfBook.imageLinks === null || shelfBook.imageLinks === undefined
+              searchedBook.imageLinks === null || searchedBook.imageLinks === undefined
                 ? ""
-                : `url(${shelfBook.imageLinks.thumbnail}` }}
+                : `url(${searchedBook.imageLinks.thumbnail}` }}
              ></div>
             <div className="book-shelf-changer">
             <select
               value={shelfValue}
-              onChange={(e) => updateShelf(shelfBook, e.target.value)}
+              onChange={(e) => updateShelf(searchedBook, "read")}
             >
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
@@ -31,8 +31,8 @@ function Book({ shelfBook, updateShelf }) {
             </select>
             </div>
         </div>
-        <div className="book-title">{shelfBook.title}</div>
-        {shelfBook.authors
+        <div className="book-title">{searchedBook.title}</div>
+        {searchedBook.authors
             .map((author, index) => (
               <div key={index} className="book-authors">{author}</div>
             ))}
